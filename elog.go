@@ -20,6 +20,8 @@ var (
 	ConfTimeLocationName string = "Asia/Shanghai"
 	ConfLogWriter io.Writer = os.Stdout
 	ConfMinLogLevel = LEVEL_INFO
+	
+	DefaultLogger *Logger
 )
 
 type Logger struct {
@@ -179,6 +181,7 @@ func (l Logger) outputf(level string, format string, v ...interface{}) {
 
 func init() {
 	ConfLogWriter = os.Stdout
+	DefaultLogger = NewLogger()
 }
 
 
