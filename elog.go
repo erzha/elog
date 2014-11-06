@@ -17,10 +17,10 @@ const (
 
 var (
 	ConfTimeLayout string = time.RFC3339
-	ConfTimeLocationName string = "Asia/Shanghai"
+	ConfTimeLocationName string
 	ConfLogWriter io.Writer = os.Stdout
 	ConfMinLogLevel = LEVEL_INFO
-	
+
 	DefaultLogger *Logger
 )
 
@@ -35,7 +35,11 @@ func NewLogger() *Logger {
 	l := new(Logger)
 	l.SetMinLogLevel(ConfMinLogLevel)
 	l.SetLogWriter(ConfLogWriter)
-	l.SetTimeLocation(ConfTimeLocationName)
+	if "" == ConfTimeLocationName {
+		l.SetTimeLocation(time.Local.String())
+	} else {
+		l.SetTimeLocation(ConfTimeLocationName)
+	}
 	l.SetTimeLayout(ConfTimeLayout)
 	return l
 }
